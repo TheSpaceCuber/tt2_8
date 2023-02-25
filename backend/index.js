@@ -8,6 +8,11 @@ import InsurancePolicies from './models/policy.model.js';
 import Claims from './models/claims.model.js';
 import employeeRouter from './routes/employees.router.js';
 
+
+import InsurancePoliciesRoute from './routes/policy.router.js';
+
+import ClaimsRouter from './routes/claims.router.js';
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

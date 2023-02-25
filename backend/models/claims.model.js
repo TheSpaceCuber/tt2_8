@@ -20,10 +20,10 @@ const InsuranceClaims = db.define('insuranceclaims', {
         validate: {
             notEmpty: true
         },
-        references: {
-            model: InsurancePolicies,
-            key: 'insuranceId'
-        }
+    //     references: {
+    //         model: InsurancePolicies,
+    //         key: 'insuranceId'
+    //     }
     },
     firstName: {
         type: DataTypes.STRING,
