@@ -35,6 +35,14 @@ const Employees = db.define('employees', {
             len: [1, 100]
         }
     },
+    middleName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            len: [1, 100]
+        }
+    },
     lastName: {
         type: DataTypes.STRING,
         allowNull: false,
