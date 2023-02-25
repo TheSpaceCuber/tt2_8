@@ -287,12 +287,8 @@ function ViewClaims() {
             </Row>
         </Container>
 
-<<<<<<< Updated upstream
-        <Button>View Claimm</Button>
-=======
         <Button>View Claim</Button>
 
->>>>>>> Stashed changes
         <Link to="/view_claim_details">Details</Link>
       </div>
     );

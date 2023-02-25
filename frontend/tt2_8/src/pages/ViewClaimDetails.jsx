@@ -47,8 +47,8 @@ function ViewClaimDetails() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Claim Status </Form.Label>
-          <Form.Control type="text"  placeholder='Pending/Approved/Rejected' disabled={check}/>
+          <Form.Label>Claim Status</Form.Label>
+          <Form.Control type="text"  placeholder='Pending/Approved/Rejected' disabled/>
         </Form.Group>
         <Button variant='danger'>Delete Claim</Button> <Button id="EditBtn" onClick={EditClaim} style={{display: check ? 'inline' : 'none' }}>Edit Claim</Button>  <Button id="SaveBtn" style={{display: check ? 'none' : 'inline' }}>Save</Button>
       </Form>
