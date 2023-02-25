@@ -4,7 +4,7 @@
 
 1. Install MySQL Workbench
 2. Install MYSQL Community Server
-3. Create new schema called db
+3. Create new schema called db using workbench
 4. Setup backend
 ```bash
 cd backend/
