@@ -16,27 +16,24 @@ function Dashboard() {
     </Row>  
     <Row>
     <Col><Card><Card.Body>
-        <Link
-          to="/view_claims"
-          >
+        <Link to="/view_claims" style={{ textDecoration: 'none', color: '#000', textAlign:'center' }}
+        >
           <h4>View Claims <ManageSearchIcon/></h4>
         </Link>
         </Card.Body></Card>
     </Col>
     <Col>
         <Card> <Card.Body>
-        <Link
-          to="/view_policies"
-          >
+        <Link to="/view_policies" style={{ textDecoration: 'none', color: '#000', textAlign:'center' }}
+        >
           <h4>View Policies <TextSnippetIcon/></h4>
         </Link>
         </Card.Body></Card>
     </Col>
     <Col>
         <Card> <Card.Body>
-        <Link
-          to="/create_claim"
-          >
+        <Link to="/create_claim" style={{ textDecoration: 'none', color: '#000', textAlign:'center' }}
+        >
           <h4>Create Claims <ReceiptLongIcon/></h4>
         </Link>
         </Card.Body></Card>
