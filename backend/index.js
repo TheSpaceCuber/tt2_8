@@ -6,6 +6,7 @@ import db from "./models/db.model.js";
 import Employees from "./models/employees.model.js";
 import InsurancePolicies from './models/policy.model.js';
 import Claims from './models/claims.model.js';
+import employeeRouter from './routes/employees.router.js';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -22,9 +23,9 @@ const store = new SessionStore({
 // initialize tables
 
 // routes
+app.use("/login", employeeRouter);
 
-
-(async () => {
+(async() => {
     try {
         await db.sync();
         console.log("Database synchronized successfully.");
