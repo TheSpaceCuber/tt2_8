@@ -5,8 +5,7 @@ import loginImg from "../assets/images/join.svg";
 import useAuth from "../hooks/useAuth";
 
 const initialState = {
-  username: "",
-  email: "",
+  employeeID: "",
   password: "",
   msg: "",
 };
@@ -85,7 +84,7 @@ const Login = () => {
               <input
                 name="employeeID"
                 type="text"
-                value={values.email}
+                value={values.employeeID}
                 onChange={handleChange}
                 className="form-control m-2"
                 autoComplete="off"
@@ -105,18 +104,10 @@ const Login = () => {
               {/* ================== Submit ================== */}
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-danger"
                 onClick={handleSubmit}
                 disabled={
-                  load &&
-                  ((values.isMember && values.email && values.password) ||
-                    (!values.isMember &&
-                      values.username &&
-                      values.email &&
-                      values.password &&
-                      values.passwordConfirm))
-                    ? false
-                    : true
+                  load && values.employeeID && values.password ? false : true
                 }
               >
                 Submit

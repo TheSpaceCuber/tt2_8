@@ -1,14 +1,20 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import ContactPageIcon from "@mui/icons-material/ContactPage";
 import DBSlogo from "../assets/images/DBSlogo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import useLogout from "../hooks/useLogout";
 
 function MyNavbar() {
+  const logout = useLogout();
+  const navigate = useNavigate();
+  const signOut = async () => {
+    await logout();
+    navigate("/login");
+  };
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -52,12 +58,15 @@ function MyNavbar() {
 
           <Navbar.Toggle />
 
-          <Navbar.Text>
-            Signed in as: <a href="#login">MyName</a>
+          <Navbar.Text className="px-1">
+            Signed in as:{" "}
+            <a className="text-white text-decoration-none">MyName</a>
           </Navbar.Text>
 
           <Form>
-            <Button>Log Out</Button>
+            <Button className="btn btn-sm btn-danger" onClick={signOut}>
+              Log Out
+            </Button>
           </Form>
         </Navbar.Collapse>
       </Container>
