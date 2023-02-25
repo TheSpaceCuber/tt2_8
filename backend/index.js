@@ -34,8 +34,6 @@ app.use(ClaimsRouter);
 // routes
 app.use("/", employeeRouter);
 
-
-
 (async() => {
     try {
         await db.sync();
