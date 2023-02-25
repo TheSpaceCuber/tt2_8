@@ -3,14 +3,13 @@ import Employees from '../models/employees.model.js';
 import { generateAccessToken, authenticateToken } from '../jwt.js';
 import bcrypt from 'bcryptjs';
 
-export const loginUser = async(req, res) => {
+export const loginUser = async (req, res) => {
 
-    const employeeId = req.body.employeeID;
+    const employeeID = req.body.employeeID;
     const password = req.body.password;
 
     // Check if user exists
-    const employee = await Employees.findOne({ where: { employeeId: employeeId } });
-    console.log(employee);
+    const employee = await Employees.findOne({ where: { employeeId: employeeID } });
     if (employee == null) {
         console.log("employeeId not found")
     } else {
@@ -20,7 +19,7 @@ export const loginUser = async(req, res) => {
         if (!isMatch) {
             return res.status(400).json({ msg: "Invalid credentials" });
         } else {
-            const token = generateAccessToken(user);
+            const token = generateAccessToken(employee);
             res.status(200).json({ token: token, status: "success" });
         }
     }
@@ -33,7 +32,7 @@ export const loginUser = async(req, res) => {
     }
 }
 
-export const registerUser = async(req, res) => {
+export const registerUser = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const firstName = req.body.firstName;
