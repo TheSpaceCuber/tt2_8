@@ -15,12 +15,11 @@ export const loginUser = async (req, res) => {
         } else {
             // Check password
             const isMatch = await bcrypt.compare(password, employee.passwordHash);
-
             if (!isMatch) {
                 return res.status(400).json({ msg: "Invalid credentials" });
             } else {
                 const token = generateAccessToken(employee);
-                res.status(200).json({ token: token, status: "success" });
+                res.status(200).json({ token: token, status: "success", user:  employee});
             }
         }
     } catch (error) {

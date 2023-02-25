@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import axios from "../api/axios.js";
 import useAuth from "../hooks/useAuth.js";
 
-const data = [
+const data2 = [
   {
     InsuranceID: 1005,
     EmployeeID: 58001002,
@@ -133,26 +133,7 @@ const data = [
   },
 ];
 
-const listItems = data.map((data) => (
-  <Col lg="4" className="mb-3">
-    <Card>
-      {" "}
-      <Card.Body>
-        <Card.Title>
-          <TextSnippetIcon />
-          {data.InsuranceID}
-        </Card.Title>
-        <Card.Text>
-          Policy details here<br></br>
-          <strong>Insurance Type:</strong> {data.InsuranceType}
-        </Card.Text>
-        <Link to="/create_claim">
-          <Card.Link href="#">Make Claims</Card.Link>
-        </Link>
-      </Card.Body>
-    </Card>
-  </Col>
-));
+
 
 // const numbers = [1, 2, 3, 4, 5];
 // const listItems = numbers.map((number) =>
@@ -161,20 +142,38 @@ const listItems = data.map((data) => (
 
 function ViewPolicy() {
   const { auth } = useAuth();
-  const [resData, setResData] = useState(data);
-  // useEffect(async (employeeID) => {
-  //   let response;
-  //   try {
-  //     response = await axios.post(
-  //       `/claims/${auth.employeeID}`,
-  //       JSON.stringify({ employeeID, password }),
-  //       {
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-  //     setResData(response)
-  //   } catch (err) {}
-  // }, [auth]);
+  const [resData, setResData] = useState([]);
+  useEffect((auth) => {
+    let response;
+    try {
+      response = axios.get(
+        `/claims/${auth.employeeID}`
+      );
+      setResData(response)
+    } catch (err) { }
+  }, [auth]);
+
+  const listItems = resData.map((data) => (
+    <Col lg="4" className="mb-3">
+      <Card>
+        {" "}
+        <Card.Body>
+          <Card.Title>
+            <TextSnippetIcon />
+            {data.InsuranceID}
+          </Card.Title>
+          <Card.Text>
+            Policy details here<br></br>
+            <strong>Insurance Type:</strong> {data.InsuranceType}
+          </Card.Text>
+          <Link to="/create_claim">
+            <Card.Link href="#">Make Claims</Card.Link>
+          </Link>
+        </Card.Body>
+      </Card>
+    </Col>
+  ));
+
   return (
     <div>
       <Container>
