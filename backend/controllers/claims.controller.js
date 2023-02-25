@@ -4,11 +4,11 @@ import InsurancePolicies from '../models/policy.model.js';
 
 import { Sequelize, DataTypes, Op } from "sequelize"
 
-export const createInsuranceClaim = async(req, res) => {
-    const { insuranceId, firstName, lastName, expenseDate,amount,purpose, followUp, previousClaimId} = req.body;
+export const createInsuranceClaim = async (req, res) => {
+    const { insuranceId, firstName, lastName, expenseDate, amount, purpose, followUp, previousClaimId } = req.body;
     try {
         const insuranceclaim = await InsuranceClaims.create({
-            
+
             insuranceId: insuranceId,
             firstName: firstName,
             lastName: lastName,
@@ -27,7 +27,7 @@ export const createInsuranceClaim = async(req, res) => {
     }
 }
 
-export const getAllClaimsForEmployee = async(req, res) => {
+export const getAllClaimsForEmployee = async (req, res) => {
     const relevantPolicies = await InsurancePolicies.findAll({
         where: {
             employeeId: req.params.employeeId
@@ -47,10 +47,10 @@ export const getAllClaimsForEmployee = async(req, res) => {
                 insuranceId: insuranceIds
             }
         });
-        if (relevantClaims.length === 0) return res.status(404).json({ msg: "Employee Claims Not Found"});
+        if (relevantClaims.length === 0) return res.status(404).json({ msg: "Employee Claims Not Found" });
         res.status(200).json(relevantClaims);
     } catch (error) {
-        res.status(500).json({msg: error.message});
+        res.status(500).json({ msg: error.message });
     }
 }
 
@@ -60,7 +60,7 @@ export const getAllClaimsForEmployee = async(req, res) => {
 // }
 
 
-export const deleteInsuranceClaim = async(req, res) => {
+export const deleteInsuranceClaim = async (req, res) => {
 
     const insuranceclaim = await InsuranceClaims.findOne({
         where: {
@@ -83,8 +83,8 @@ export const deleteInsuranceClaim = async(req, res) => {
     }
 }
 
-export const editInsuranceClaim = async(req, res) => {
-    let {expenseDate,amount,purpose, followUp, previousClaimId} = req.body;
+export const editInsuranceClaim = async (req, res) => {
+    let { expenseDate, amount, purpose, followUp, previousClaimId } = req.body;
 
     const insuranceclaim = await InsuranceClaims.findOne({
         where: {
@@ -101,27 +101,18 @@ export const editInsuranceClaim = async(req, res) => {
     previousClaimId = previousClaimId ?? insuranceclaim.previousClaimId;
     let lastEditedClaimDate = new Date().toString();
 
-// export const deleteUmbrella = async(req, res) => {
-//     const umbrella = await Umbrella.findOne({
-//         where: {
-//             umbrellaId: req.params.id
+    //check if claim is in "Pending" status to be deleted
+    if (insuranceclaim.status == "Approved") return res.status(500).json({ msg: "Insurance Claim cannot be editted. Can only be editted if in Pending or Rejected Status" });
+    try {
+        const insuranceclaim = await InsuranceClaims.update({
+            expenseDate: expenseDate,
+            amount: amount,
+            purpose: purpose,
+            followUp: followUp,
+            previousClaimId: previousClaimId,
+            lastEditedClaimDate: lastEditedClaimDate
 
-//         }
-//     });
-//     if (!umbrella) return res.status(404).json({ msg: "Umbrella Terminal Not Found" });
-//     try {
-//         await Umbrella.destroy({
-//             where: {
-//                 umbrellaId: umbrella.umbrellaId
-//             }
-//         });
-//         res.status(201).json({ msg: `Umbrella ${umbrella.umbrellaId} has been successfully deleted.` });
-//     } catch (error) {
-//         res.status(500).json({ msg: error.message });
-//     }
-// }
-
-        }, { where: {claimId: req.params.id}, fields: ["expenseDate", "amount", "purpose", "followUp", "previousClaimId", "lastEditedClaimDate"]});
+        }, { where: { claimId: req.params.id }, fields: ["expenseDate", "amount", "purpose", "followUp", "previousClaimId", "lastEditedClaimDate"] });
         res.status(200).json({ msg: `Insurance Claim ${req.params.id} has been successfully edited.` });
     } catch (error) {
         res.status(500).json({ msg: error.message });
