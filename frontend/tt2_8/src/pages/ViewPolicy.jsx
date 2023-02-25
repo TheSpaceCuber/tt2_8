@@ -133,8 +133,6 @@ const data2 = [
   },
 ];
 
-
-
 // const numbers = [1, 2, 3, 4, 5];
 // const listItems = numbers.map((number) =>
 //   <li>{number}</li>
@@ -143,15 +141,18 @@ const data2 = [
 function ViewPolicy() {
   const { auth } = useAuth();
   const [resData, setResData] = useState([]);
-  useEffect((auth) => {
-    let response;
-    try {
-      response = axios.get(
-        `/claims/${auth.employeeID}`
-      );
-      setResData(response)
-    } catch (err) { }
-  }, [auth]);
+  useEffect(
+    (auth) => {
+      let response;
+      try {
+        response = axios.get(`/policy/${auth.employeeID}`);
+        setResData(response);
+      } catch (err) {
+        setResData(data2);
+      }
+    },
+    [auth]
+  );
 
   const listItems = resData.map((data) => (
     <Col lg="4" className="mb-3">
