@@ -21,7 +21,10 @@ const store = new SessionStore({
 
 // initialize tables
 
-(async() => {
+// routes
+
+
+(async () => {
     try {
         await db.sync();
         console.log("Database synchronized successfully.");
