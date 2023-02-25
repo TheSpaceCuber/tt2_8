@@ -26,15 +26,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoad(false);
-    const { username, email, password } = values;
+    const { employeeID, password } = values;
     let response;
     try {
       response = await axios.post(
-        "login route",
-        JSON.stringify({ email, password }),
+        "/login",
+        JSON.stringify({ employeeID, password }),
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true,
         }
       );
     } catch (error) {
