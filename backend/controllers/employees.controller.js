@@ -7,26 +7,22 @@ export const loginUser = async (req, res) => {
 
     const employeeID = req.body.employeeID;
     const password = req.body.password;
-
-    // Check if user exists
-    const employee = await Employees.findOne({ where: { employeeId: employeeID } });
-    if (employee == null) {
-        console.log("employeeId not found")
-    } else {
-        // Check password
-        const isMatch = await bcrypt.compare(password, employee.passwordHash);
-
-        if (!isMatch) {
-            return res.status(400).json({ msg: "Invalid credentials" });
-        } else {
-            const token = generateAccessToken(employee);
-            res.status(200).json({ token: token, status: "success" });
-        }
-    }
-
-
     try {
+        const employee = await Employees.findOne({ where: { employeeId: employeeID } });
+        if (employee == null) {
+            console.log(' Employee not found');
+            res.status(404).json({ 'msg': 'Employee not found' });
+        } else {
+            // Check password
+            const isMatch = await bcrypt.compare(password, employee.passwordHash);
 
+            if (!isMatch) {
+                return res.status(400).json({ msg: "Invalid credentials" });
+            } else {
+                const token = generateAccessToken(employee);
+                res.status(200).json({ token: token, status: "success" });
+            }
+        }
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }
