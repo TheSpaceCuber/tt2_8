@@ -11,7 +11,6 @@ import TextSnippetIcon from '@mui/icons-material/TextSnippet';
   function ViewPolicy() {
     return (
       <div>
-      <Navbar></Navbar>
         <Container>
       <Row className='mt-3'>
       <h2>Your Policies</h2>
