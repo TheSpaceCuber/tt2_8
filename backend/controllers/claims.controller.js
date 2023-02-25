@@ -1,13 +1,15 @@
-import InsuranceClaims from '../models/umbrella.model.js';
+import InsuranceClaims from '../models/claims.model.js';
 import { Sequelize, DataTypes } from "sequelize"
 
-import Fs from 'fs';
-import Csv from 'fast-csv';
+// import Fs from 'fs';
+// import Csv from 'fast-csv';
 
 export const createInsuranceClaim = async(req, res) => {
-    const { firstName, lastName, expenseDate,amount,purpose, followUp, previousClaimId,lastEditedClaimDate } = req.body;
+    const { insuranceId, firstName, lastName, expenseDate,amount,purpose, followUp, previousClaimId} = req.body;
     try {
         const insuranceclaim = await InsuranceClaims.create({
+            
+            insuranceId: insuranceId,
             firstName: firstName,
             lastName: lastName,
             expenseDate: expenseDate,
@@ -16,10 +18,10 @@ export const createInsuranceClaim = async(req, res) => {
             followUp: followUp,
             previousClaimId: previousClaimId,
             status: "Pending",
-            lastEditedClaimDate: lastEditedClaimDate
+            lastEditedClaimDate: new Date().toString()
 
         });
-        res.status(201).json({ msg: `Insurance Claim${insuranceclaim.id} has been successfully created` });
+        res.status(201).json({ msg: `Insurance Claim${insuranceclaim.claimId} has been successfully created` });
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }

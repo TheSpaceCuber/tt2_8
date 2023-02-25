@@ -7,6 +7,8 @@ import Employees from "./models/employees.model.js";
 import InsurancePolicies from './models/policy.model.js';
 import Claims from './models/claims.model.js';
 
+import ClaimsRouter from './routes/claims.router.js';
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,6 +21,8 @@ const store = new SessionStore({
     db: db
 });
 
+//Adding routes
+app.use(ClaimsRouter);
 // initialize tables
 
 (async() => {
