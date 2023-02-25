@@ -8,17 +8,19 @@ import ViewClaimDetails from "./pages/ViewClaimDetails";
 import ViewClaims from "./pages/ViewClaims";
 import ViewPolicy from "./pages/ViewPolicy";
 import "bootstrap/dist/css/bootstrap.min.css";
+import MyNavbar from "./Components/Navbar";
 
 function App() {
   return (
     <>
+      <MyNavbar />
       <Routes>
         <Route path="/create_claim" element={<CreateClaim />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/view_claims_details" element={<ViewClaimDetails />} />
+        <Route path="/view_claim_details" element={<ViewClaimDetails />} />
         <Route path="/view_claims" element={<ViewClaims />} />
-        <Route path="/view_policy" element={<ViewPolicy />} />
+        <Route path="/view_policies" element={<ViewPolicy />} />
       </Routes>
     </>
   );
