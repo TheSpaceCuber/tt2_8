@@ -1,6 +1,7 @@
 import express from "express";
 import{
     createInsuranceClaim,
+    getAllClaimsForEmployee
     // getInsuranceClaim,
     // editInsuranceClaim,
     // deleteInsuranceClaim
@@ -13,7 +14,10 @@ const claimsRouter = express.Router();
 // claimsRouter.get('/claims/:id', getInsuranceClaim);
 
 //(2) Create claim
-claimsRouter.post('/add-claim', createInsuranceClaim); 
+claimsRouter.post('/add-claim', createInsuranceClaim);
+
+// Get all claims for employee
+claimsRouter.get('/claims/:employeeId', getAllClaimsForEmployee)
 
 //(3) Edit claim
 // claimsRouter.patch('/edit-claim/:id', editInsuranceClaim);

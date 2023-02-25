@@ -1,8 +1,8 @@
 import InsuranceClaims from '../models/claims.model.js';
-import { Sequelize, DataTypes } from "sequelize"
+// import Employees from '../models/employees.model.js';
+import InsurancePolicies from '../models/policy.model.js';
 
-// import Fs from 'fs';
-// import Csv from 'fast-csv';
+import { Sequelize, DataTypes, Op } from "sequelize"
 
 export const createInsuranceClaim = async(req, res) => {
     const { insuranceId, firstName, lastName, expenseDate,amount,purpose, followUp, previousClaimId} = req.body;
@@ -26,6 +26,39 @@ export const createInsuranceClaim = async(req, res) => {
         res.status(400).json({ msg: error.message });
     }
 }
+
+export const getAllClaimsForEmployee = async(req, res) => {
+    const relevantPolicies = await InsurancePolicies.findAll({
+        where: {
+            employeeId: req.params.employeeId
+        }
+    });
+    console.log(relevantPolicies);
+    if (!relevantPolicies) return res.status(404).json({ msg: "Employee Policies Not Found" });
+
+    const insuranceIds = []
+    for (const insurancepolicies of relevantPolicies) {
+        insuranceIds.push(insurancepolicies.insuranceId);
+    }
+
+    try {
+        const relevantClaims = await InsuranceClaims.findAll({
+            where: {
+                insuranceId: insuranceIds
+            }
+        });
+        if (relevantClaims.length === 0) return res.status(404).json({ msg: "Employee Claims Not Found"});
+        res.status(200).json(relevantClaims);
+    } catch (error) {
+        res.status(500).json({msg: error.message});
+    }
+}
+
+
+// export const editInsuranceClaim = async(req, res) => {
+//     const {}
+// }
+
 
 // export const getAllUmbrella = async(req, res) => {
 //     try {
