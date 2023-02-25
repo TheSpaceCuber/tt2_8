@@ -3,8 +3,8 @@ import{
     createInsuranceClaim,
     getAllClaimsForEmployee
     // getInsuranceClaim,
-    // editInsuranceClaim,
-    // deleteInsuranceClaim
+    editInsuranceClaim,
+    deleteInsuranceClaim
 } from "../controllers/claims.controller.js";
 // import { verifyUser, adminOnly } from "../middleware/authUser.middleware.js";
 
@@ -20,9 +20,9 @@ claimsRouter.post('/add-claim', createInsuranceClaim);
 claimsRouter.get('/claims/:employeeId', getAllClaimsForEmployee)
 
 //(3) Edit claim
-// claimsRouter.patch('/edit-claim/:id', editInsuranceClaim);
+claimsRouter.patch('/edit-claim/:id', editInsuranceClaim);
 
 //(4) Delete claim
-// claimsRouter.delete('/delete-claim/:id', deleteInsuranceClaim);
+claimsRouter.delete('/delete-claim/:id', deleteInsuranceClaim);
 
 export default claimsRouter;

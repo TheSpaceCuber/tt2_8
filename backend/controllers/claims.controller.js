@@ -60,75 +60,96 @@ export const getAllClaimsForEmployee = async(req, res) => {
 // }
 
 
-// export const getAllUmbrella = async(req, res) => {
-//     try {
-//         const response = await Umbrella.findAll();
-//         res.status(200).json(response);
-//     } catch (error) {
-//         res.status(500).json({ msg: error.message });
-//     }
+export const getAllClaimsForEmployee = async(req, res) => {
+    const relevantPolicies = await InsurancePolicies.findAll({
+        where: {
+            employeeId: req.params.employeeId
+        }
+    });
+    console.log(relevantPolicies);
+    if (!relevantPolicies) return res.status(404).json({ msg: "Employee Policies Not Found" });
+
+    const insuranceIds = []
+    for (const insurancepolicies of relevantPolicies) {
+        insuranceIds.push(insurancepolicies.insuranceId);
+    }
+
+    try {
+        const relevantClaims = await InsuranceClaims.findAll({
+            where: {
+                insuranceId: insuranceIds
+            }
+        });
+        if (relevantClaims.length === 0) return res.status(404).json({ msg: "Employee Claims Not Found"});
+        res.status(200).json(relevantClaims);
+    } catch (error) {
+        res.status(500).json({msg: error.message});
+    }
+}
+
+
+
+
+// export const editInsuranceClaim = async(req, res) => {
+//     const {}
 // }
 
-// export const deleteUmbrella = async(req, res) => {
-//     const umbrella = await Umbrella.findOne({
-//         where: {
-//             umbrellaId: req.params.id
-//         }
-//     });
-//     if (!umbrella) return res.status(404).json({ msg: "Umbrella Terminal Not Found" });
-//     try {
-//         await Umbrella.destroy({
-//             where: {
-//                 umbrellaId: umbrella.umbrellaId
-//             }
-//         });
-//         res.status(201).json({ msg: `Umbrella ${umbrella.umbrellaId} has been successfully deleted.` });
-//     } catch (error) {
-//         res.status(500).json({ msg: error.message });
-//     }
-// }
 
-// export const uploadUmbrellas = async(req, res) => {
-//     try {
-//         if (req.file == undefined) {
-//             return res.status(400).send("Please upload a CSV File!");
-//         }
+export const deleteInsuranceClaim = async(req, res) => {
 
-//         let umbrellas = [];
-//         let path = "./resources/static/assets/uploads/" + req.file.filename;
-//         Fs.createReadStream(path)
-//             .pipe(Csv.parse({ headers: true }))
-//             .on("error", (error) => {
-//                 throw error.message;
-//             })
-//             .on("data", (row) => {
-//                 row['lastTimeRented'] = "1970-01-01 00:00:00"
-//                 if (row['isAvailable'] === "TRUE") {
-//                     row['isAvailable'] = true
-//                 } else {
-//                     row['isAvailable'] = false
-//                 }
-//                 delete row[''];
-//                 umbrellas.push(row)
-//             })
-//             .on("end", () => {
-//                 Umbrella.bulkCreate(umbrellas)
-//                     .then(() => {
-//                         res.status(200).send({
-//                             message: "Uploaded the file successfully: " + req.file.originalname,
-//                         });
-//                     })
-//                     .catch((error) => {
-//                         res.status(500).send({
-//                             message: "Fail to import data into database!",
-//                             error: error.message,
-//                         });
-//                     });
-//             });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send({
-//             message: "Could not upload the file: " + req.file.originalname,
-//         });
-//     }
-// }
+    const insuranceclaim = await InsuranceClaims.findOne({
+        where: {
+            claimId: req.params.id
+        }
+    });
+    if (!insuranceclaim) return res.status(404).json({ msg: "Insurance Claim does not exist" });
+
+    //check if claim is in "Pending" status to be deleted
+    if (insuranceclaim.status != "Pending") return res.status(500).json({ msg: "Insurance Claim cannot be deleted. Not in Pending Status" });
+    try {
+        await InsuranceClaims.destroy({
+            where: {
+                claimId: insuranceclaim.claimId
+            }
+        });
+        res.status(200).json({ msg: `Insurance Claim ${insuranceclaim.claimId} has been successfully deleted.` });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
+export const editInsuranceClaim = async(req, res) => {
+    let {expenseDate,amount,purpose, followUp, previousClaimId} = req.body;
+
+    const insuranceclaim = await InsuranceClaims.findOne({
+        where: {
+            claimId: req.params.id
+        }
+    });
+
+    if (!insuranceclaim) return res.status(404).json({ msg: "Insurance Claim does not exist" });
+
+    expenseDate = expenseDate ?? insuranceclaim.expenseDate;
+    amount = amount ?? insuranceclaim.amount;
+    purpose = purpose ?? insuranceclaim.purpose;
+    followUp = followUp ?? insuranceclaim.followUp;
+    previousClaimId = previousClaimId ?? insuranceclaim.previousClaimId;
+    let lastEditedClaimDate = new Date().toString();
+
+    //check if claim is in "Pending" status to be deleted
+    if (insuranceclaim.status == "Approved") return res.status(500).json({ msg: "Insurance Claim cannot be editted. Can only be editted if in Pending or Rejected Status" });
+    try {
+        const insuranceclaim = await InsuranceClaims.update({  
+            expenseDate: expenseDate,
+            amount: amount,
+            purpose: purpose,
+            followUp: followUp,
+            previousClaimId: previousClaimId,
+            lastEditedClaimDate: lastEditedClaimDate
+
+        }, { where: {claimId: req.params.id}, fields: ["expenseDate", "amount", "purpose", "followUp", "previousClaimId", "lastEditedClaimDate"]});
+        res.status(200).json({ msg: `Insurance Claim ${req.params.id} has been successfully edited.` });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
