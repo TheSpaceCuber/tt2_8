@@ -40,7 +40,7 @@ const Login = () => {
       setLoad(true);
       return setValues({ ...values, msg: error.response.data.message });
     }
-    setAuth({ user: response.data.data.user, token: response.data.token });
+    setAuth({ user: response.data.user, token: response.data.token });
     setValues({ ...values, msg: "Sucess, redirecting..." });
     setSuccess(true);
   };
