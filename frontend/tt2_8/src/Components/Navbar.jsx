@@ -48,10 +48,6 @@ function MyNavbar() {
                 Create Claim
               </Link>
             </Nav.Link>
-            <Nav.Link>
-              <ContactPageIcon />
-              My Profile
-            </Nav.Link>
           </Nav>
 
           <Navbar.Toggle />
