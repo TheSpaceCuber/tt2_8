@@ -3,9 +3,9 @@ import cors from 'cors';
 import SequelizeStore from "connect-session-sequelize";
 import session from "express-session";
 import db from "./models/db.model.js";
-import Employees from "./models/employees.model.js";
-import InsurancePolicies from './models/policy.model.js';
-import Claims from './models/claims.model.js';
+
+
+import InsurancePoliciesRoute from './routes/policy.router.js';
 
 import ClaimsRouter from './routes/claims.router.js';
 
@@ -21,8 +21,6 @@ const store = new SessionStore({
     db: db
 });
 
-//Adding routes
-app.use(ClaimsRouter);
 // initialize tables
 
 (async() => {
