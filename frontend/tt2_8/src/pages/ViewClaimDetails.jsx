@@ -23,7 +23,7 @@ function ViewClaimDetails() {
 
         <InputGroup className="mb-3">
         <InputGroup.Text>$</InputGroup.Text>
-        <Form.Control type='number' min={0.01} step={0.01} placeholder={"295.04"} aria-label="Amount (to the nearest dollar)" />
+        <Form.Control type='number' placeholder={"295.04"} aria-label="Amount (to the nearest dollar)" />
         </InputGroup>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -32,13 +32,15 @@ function ViewClaimDetails() {
         </Form.Group>
   
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Not a Follow Up Claim " disabled/>
+          <Form.Check type="checkbox" label="Follow Up Claim " disabled/>
+          <Form.Control type="text"  placeholder='Claim ID' disabled/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Claim Status </Form.Label>
           <Form.Control type="text"  placeholder='Pending/Approved/Rejected' disabled/>
         </Form.Group>
+        <Button>Edit Claim</Button> <Button>Delete Claim</Button>
       </Form>
       
       </Card.Body>
