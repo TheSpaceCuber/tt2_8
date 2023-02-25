@@ -13,14 +13,14 @@ function Dashboard() {
           <p className="p-1 m-0">view claims</p>
         </Link>
         <Link
-          to="/view_policy"
+          to="/view_policies"
           className="col-2 offset-2 border rounded d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark"
         >
           <p className="p-1 m-0">15</p>
           <p className="p-1 m-0">view policies</p>
         </Link>
         <Link
-          to="/create_claims"
+          to="/create_claim"
           className="col-2 offset-2 border rounded d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark"
         >
           <p className="p-1 m-0">20</p>
