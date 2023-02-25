@@ -7,7 +7,7 @@ import{
     updateUserCreditMinus,
     deleteUser
 } from "../controllers/claims.controller.js";
-import { verifyUser, adminOnly } from "../middleware/authUser.middleware.js";
+// import { verifyUser, adminOnly } from "../middleware/authUser.middleware.js";
 
 const router = express.Router();
 

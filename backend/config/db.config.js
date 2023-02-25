@@ -1,7 +1,7 @@
 const credentials = {
     HOST: "localhost",
     USER: "root",
-    PASSWORD: "team8",
+    PASSWORD: "",
     DB: "db",
     DB_TYPE: "mysql"
 };
