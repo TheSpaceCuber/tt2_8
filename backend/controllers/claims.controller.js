@@ -44,7 +44,7 @@ export const deleteInsuranceClaim = async(req, res) => {
                 claimId: insuranceclaim.claimId
             }
         });
-        res.status(201).json({ msg: `Insurance Claim ${insuranceclaim.claimId} has been successfully deleted.` });
+        res.status(200).json({ msg: `Insurance Claim ${insuranceclaim.claimId} has been successfully deleted.` });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
@@ -80,7 +80,7 @@ export const editInsuranceClaim = async(req, res) => {
             lastEditedClaimDate: lastEditedClaimDate
 
         }, { where: {claimId: req.params.id}, fields: ["expenseDate", "amount", "purpose", "followUp", "previousClaimId", "lastEditedClaimDate"]});
-        res.status(201).json({ msg: `Insurance Claim ${req.params.id} has been successfully edited.` });
+        res.status(200).json({ msg: `Insurance Claim ${req.params.id} has been successfully edited.` });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
