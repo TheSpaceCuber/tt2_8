@@ -101,16 +101,25 @@ export const editInsuranceClaim = async(req, res) => {
     previousClaimId = previousClaimId ?? insuranceclaim.previousClaimId;
     let lastEditedClaimDate = new Date().toString();
 
-    //check if claim is in "Pending" status to be deleted
-    if (insuranceclaim.status == "Approved") return res.status(500).json({ msg: "Insurance Claim cannot be editted. Can only be editted if in Pending or Rejected Status" });
-    try {
-        const insuranceclaim = await InsuranceClaims.update({  
-            expenseDate: expenseDate,
-            amount: amount,
-            purpose: purpose,
-            followUp: followUp,
-            previousClaimId: previousClaimId,
-            lastEditedClaimDate: lastEditedClaimDate
+// export const deleteUmbrella = async(req, res) => {
+//     const umbrella = await Umbrella.findOne({
+//         where: {
+//             umbrellaId: req.params.id
+
+//         }
+//     });
+//     if (!umbrella) return res.status(404).json({ msg: "Umbrella Terminal Not Found" });
+//     try {
+//         await Umbrella.destroy({
+//             where: {
+//                 umbrellaId: umbrella.umbrellaId
+//             }
+//         });
+//         res.status(201).json({ msg: `Umbrella ${umbrella.umbrellaId} has been successfully deleted.` });
+//     } catch (error) {
+//         res.status(500).json({ msg: error.message });
+//     }
+// }
 
         }, { where: {claimId: req.params.id}, fields: ["expenseDate", "amount", "purpose", "followUp", "previousClaimId", "lastEditedClaimDate"]});
         res.status(200).json({ msg: `Insurance Claim ${req.params.id} has been successfully edited.` });
