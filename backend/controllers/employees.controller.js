@@ -1,6 +1,7 @@
 import express from 'express';
 import Employees from '../models/employees.model.js';
 import { generateAccessToken, authenticateToken } from '../jwt.js';
+import bcrypt from 'bcryptjs';
 
 export const loginUser = async(req, res) => {
 

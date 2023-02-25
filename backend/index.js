@@ -23,7 +23,7 @@ const store = new SessionStore({
 // initialize tables
 
 // routes
-app.use("/login", employeeRouter);
+app.use("/", employeeRouter);
 
 (async() => {
     try {
