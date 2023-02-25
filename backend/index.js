@@ -7,6 +7,8 @@ import db from "./models/db.model.js";
 
 import InsurancePoliciesRoute from './routes/policy.router.js';
 
+import ClaimsRouter from './routes/claims.router.js';
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,10 +21,7 @@ const store = new SessionStore({
     db: db
 });
 
-// Adding Routes
-app.use(InsurancePoliciesRoute);
-
-
+// initialize tables
 
 (async() => {
     try {
