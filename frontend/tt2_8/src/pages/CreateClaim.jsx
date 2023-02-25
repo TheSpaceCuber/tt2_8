@@ -25,13 +25,9 @@ function CreateClaim() {
     e.preventDefault();
     let response;
     try {
-      // response = await axios.post(
-      //   "create claim route",
-      //   JSON.stringify(claimVal),
-      //   {
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
+      response = await axios.post("/add-claim", JSON.stringify(claimVal), {
+        headers: { "Content-Type": "application/json" },
+      });
       console.log(claimVal);
     } catch (error) {
       console.log(error);
