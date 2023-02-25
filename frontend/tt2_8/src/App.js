@@ -17,7 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/view_claims_details" element={<ViewClaimDetails />} />
-        <Route path="/view_claims_details" element={<ViewClaims />} />
+        <Route path="/view_claims" element={<ViewClaims />} />
         <Route path="/view_policy" element={<ViewPolicy />} />
       </Routes>
     </>
