@@ -8,6 +8,10 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<ViewPolicy />} />
+        <Route path="/" element={<ViewPolicy />} />
+        <Route path="/" element={<ViewPolicy />} />
+        <Route path="/" element={<ViewPolicy />} />
+        <Route path="/" element={<ViewPolicy />} />
       </Routes>
     </>
   );
