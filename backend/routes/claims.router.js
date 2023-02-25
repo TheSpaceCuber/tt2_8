@@ -1,7 +1,7 @@
 import express from "express";
 import{
     createInsuranceClaim,
-    getAllClaimsForEmployee
+    getAllClaimsForEmployee,
     // getInsuranceClaim,
     editInsuranceClaim,
     deleteInsuranceClaim
