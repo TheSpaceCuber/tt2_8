@@ -5,7 +5,7 @@ function ViewClaims() {
     return (
       <div>
 
-        <Button>View Claim</Button>
+        <Button>View Claimm</Button>
         <Link to="/view_claim_details">Details</Link>
       </div>
     );
