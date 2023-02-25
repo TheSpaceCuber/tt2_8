@@ -1,28 +1,26 @@
 import express from "express";
-import{
+import {
     createInsuranceClaim,
     getAllClaimsForEmployee,
     // getInsuranceClaim,
     editInsuranceClaim,
     deleteInsuranceClaim
 } from "../controllers/claims.controller.js";
-// import { verifyUser, adminOnly } from "../middleware/authUser.middleware.js";
+import { generateAccessToken, authenticateToken } from '../jwt.js';
 
 const claimsRouter = express.Router();
 
-//(1) Get all claims of employee id
-// claimsRouter.get('/claims/:id', getInsuranceClaim);
+// (1) Get all claims for employee
+claimsRouter.get('/claims/:employeeId', authenticateToken, getAllClaimsForEmployee)
 
 //(2) Create claim
-claimsRouter.post('/add-claim', createInsuranceClaim);
+claimsRouter.post('/add-claim', authenticateToken, createInsuranceClaim);
 
-// Get all claims for employee
-claimsRouter.get('/claims/:employeeId', getAllClaimsForEmployee)
 
 //(3) Edit claim
-claimsRouter.patch('/edit-claim/:id', editInsuranceClaim);
+claimsRouter.patch('/edit-claim/:id', authenticateToken, editInsuranceClaim);
 
 //(4) Delete claim
-claimsRouter.delete('/delete-claim/:id', deleteInsuranceClaim);
+claimsRouter.delete('/delete-claim/:id', authenticateToken, deleteInsuranceClaim);
 
 export default claimsRouter;
