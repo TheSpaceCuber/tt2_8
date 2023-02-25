@@ -5,17 +5,17 @@ import bcrypt from 'bcryptjs';
 
 export const loginUser = async(req, res) => {
 
-    const username = req.body.username;
+    const employeeId = req.body.employeeID;
     const password = req.body.password;
 
     // Check if user exists
-    const user = await Employees.findOne({ where: { username: username } });
-    console.log(user);
-    if (user == null) {
-        console.log("Username not found")
+    const employee = await Employees.findOne({ where: { employeeId: employeeId } });
+    console.log(employee);
+    if (employee == null) {
+        console.log("employeeId not found")
     } else {
         // Check password
-        const isMatch = await bcrypt.compare(password, user.passwordHash);
+        const isMatch = await bcrypt.compare(password, employee.passwordHash);
 
         if (!isMatch) {
             return res.status(400).json({ msg: "Invalid credentials" });
