@@ -1,33 +1,48 @@
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 function Dashboard() {
   return (
-    <div className="container-fluid vh-100">
-      <div className="row d-flex justify-space-between py-2">
+    <Container>
+          <Row className='mt-3'>
+    <h2>My Dashboard</h2>
+    </Row>  
+    <Row>
+    <Col><Card><Card.Body>
         <Link
           to="/view_claims"
-          className="col-2 offset-1 border rounded d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark"
-        >
-          <p className="p-1 m-0">10</p>
-          <p className="p-1 m-0">view claims</p>
+          >
+          <h4>View Claims <ManageSearchIcon/></h4>
         </Link>
+        </Card.Body></Card>
+    </Col>
+    <Col>
+        <Card> <Card.Body>
         <Link
           to="/view_policies"
-          className="col-2 offset-2 border rounded d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark"
-        >
-          <p className="p-1 m-0">15</p>
-          <p className="p-1 m-0">view policies</p>
+          >
+          <h4>View Policies <TextSnippetIcon/></h4>
         </Link>
+        </Card.Body></Card>
+    </Col>
+    <Col>
+        <Card> <Card.Body>
         <Link
           to="/create_claim"
-          className="col-2 offset-2 border rounded d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark"
-        >
-          <p className="p-1 m-0">20</p>
-          <p className="p-1 m-0">create claims</p>
+          >
+          <h4>Create Claims <ReceiptLongIcon/></h4>
         </Link>
-      </div>
-    </div>
+        </Card.Body></Card>
+    </Col>
+    </Row>
+    </Container>
   );
 }
 
