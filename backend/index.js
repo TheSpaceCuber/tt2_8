@@ -29,6 +29,7 @@ const store = new SessionStore({
 
 // routes
 app.use("/", employeeRouter);
+app.use("/", ClaimsRouter);
 
 (async() => {
     try {
