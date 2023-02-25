@@ -3,6 +3,10 @@ import cors from 'cors';
 import SequelizeStore from "connect-session-sequelize";
 import session from "express-session";
 import db from "./models/db.model.js";
+import Employees from "./models/employees.model.js";
+import InsurancePolicies from './models/policy.model.js';
+import Claims from './models/claims.model.js';
+import employeeRouter from './routes/employees.router.js';
 
 
 import InsurancePoliciesRoute from './routes/policy.router.js';
@@ -26,6 +30,9 @@ app.use(InsurancePoliciesRoute);
 app.use(ClaimsRouter);
 
 // initialize tables
+
+// routes
+app.use("/", employeeRouter);
 
 
 
