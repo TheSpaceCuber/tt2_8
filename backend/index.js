@@ -25,10 +25,16 @@ const store = new SessionStore({
     db: db
 });
 
+// add routers
+app.use(InsurancePoliciesRoute);
+app.use(ClaimsRouter);
+
 // initialize tables
 
 // routes
 app.use("/", employeeRouter);
+
+
 
 (async() => {
     try {
