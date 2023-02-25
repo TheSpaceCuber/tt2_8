@@ -5,7 +5,7 @@ import{
 
 const policyRouter = express.Router();
 
-policyRouter.post('/add-policy', createPolicy);
+policyRouter.post('/add-policy/', createPolicy);
 
 
 export default policyRouter;
