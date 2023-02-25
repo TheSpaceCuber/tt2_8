@@ -9,6 +9,7 @@ import ViewClaims from "./pages/ViewClaims";
 import ViewPolicy from "./pages/ViewPolicy";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MyNavbar from "./Components/Navbar";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/view_claim_details" element={<ViewClaimDetails />} />
         <Route path="/view_claims" element={<ViewClaims />} />
         <Route path="/view_policies" element={<ViewPolicy />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </>
   );
